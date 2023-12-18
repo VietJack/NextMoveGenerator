@@ -22,8 +22,9 @@ def next_move_maker(request):
             fenPass(fen)
         except:
             return Response({'Message':'Invalid FEN string'})
-        depth = int(request.query_params.get('depth'))
-        if depth and isinstance(depth, int):
+        depth = request.query_params.get('depth')
+        if depth:
+            depth = int(depth)
             move_generator = generate_next_move(fen, depth)
         else:
             move_generator = generate_next_move(fen)
